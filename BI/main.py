@@ -1,13 +1,10 @@
 import tkinter
 from tkinter import *
-#import avoidgame
 from pygame.rect import *
 import os
 import random
 import pygame
-#from Pgame import *
-
-
+score =0
 
 def btncall():
     global new
@@ -19,26 +16,27 @@ def btncall():
     canvas.create_image(10, 10, anchor=NW, image=img)
     new.mainloop()
 
-
-
 def btncall2():
     global new
     new = Toplevel()
     btn = Button(new, command=btncall)
-    img = PhotoImage(file="bananaleaf.png")
-
+    # img = PhotoImage(file="bananaleaf.png")
+    # photo = PhotoImage(file="m.gif")
+    # btn = Button(new, image=photo)
+    #btn.pack(expand=1, anchor=CENTER)
     btn.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30),)  # 버튼 가로 세로 크기 변경
     btn.config(text="연습1")  # 현재 시각
     btn.pack(side=LEFT, padx=70)  # 버튼 배
-    btn2 = Button(new, command=btncall2)
+    btn2 = Button(new, )
     btn2.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn2.config(text="연습2")  # 현재 시각
     btn2.pack(side=LEFT, padx=70)  # 버튼 배
-    btn3 = Button(new, command=btncall3)
+    btn3 = Button(new, )
     btn3.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn3.config(text="연습2")  # 현재 시각
     btn3.pack(side=LEFT, padx=70)  # 버튼 배
 def btncall3():
+    score =0
     pygame.init()  # 초기화 (반드시 필요) init 호출
 
     # 화면 크기 설정
@@ -47,11 +45,11 @@ def btncall3():
     screen = pygame.display.set_mode((screen_width, screen_height))
 
     # 화면 타이틀 설정
-    pygame.display.set_caption("QUIZ")  # 게임 이름
+    pygame.display.set_caption("바나나게임")  # 게임 이름
 
     # FPS
     clock = pygame.time.Clock()
-    ###############################################################
+
 
     # 1. 사용자 게임 초기화 (배경화면, 게임 이미지, 좌표, 속도, 폰트 등)
     # 배경 만들기
@@ -77,6 +75,15 @@ def btncall3():
     ddong_x_pos = random.randint(0, screen_width - ddong_width)  # 0 ~ 480 - 캐릭터
     ddong_y_pos = 0
     ddong_speed = 10
+
+    #돈만들기
+    don = pygame.image.load("orange4.png")
+    don_size = ddong.get_rect().size
+    don_width = ddong_size[0]
+    don_height = ddong_size[1]
+    don_x_pos = random.randint(0, screen_width - ddong_width)  # 0 ~ 480 - 캐릭터
+    don_y_pos = 0
+    don_speed = 10
 
     # 이벤트 루프
     running = True
@@ -112,6 +119,12 @@ def btncall3():
             ddong_y_pos = 0
             ddong_x_pos = random.randint(0, screen_width - ddong_width)
 
+        don_y_pos += don_speed
+
+        if don_y_pos > screen_height:
+            don_y_pos = 1
+            don_x_pos = random.randint(0, screen_width - don_width)*2
+
         # 4. 충돌 처리
         character_rect = character.get_rect()
         character_rect.left = character_x_pos
@@ -121,14 +134,25 @@ def btncall3():
         ddong_rect.left = ddong_x_pos
         ddong_rect.top = ddong_y_pos
 
+        don_rect = don.get_rect()
+        don_rect.left = don_x_pos
+        don_rect.top = don_y_pos
+
         if character_rect.colliderect(ddong_rect):
             print("충돌")
             running = False
+            
+        if character_rect.colliderect(don_rect):
+            print("돈먹음")
+            running = True
+            #score +=100
 
         # 5. 화면에 그리기
         screen.blit(background, (0, 0))
         screen.blit(character, (character_x_pos, character_y_pos))
         screen.blit(ddong, (ddong_x_pos, ddong_y_pos))
+        screen.blit(don, (don_x_pos, don_y_pos))
+        #screen.blit(score)
 
         pygame.display.update()  # 게임 화면을 다시 그리기 ! (반드시 계속 호출되어야함)
 
@@ -144,6 +168,10 @@ def main():
     win = Tk()  # 창 생성
     win.geometry("1000x600")
     win.title("연습")
+    # canvas = Canvas(win, bg='Yellow')
+    # canvas.pack(expand=YES, fill=BOTH)
+    # img = PhotoImage(file="bananaleaf.png")
+    # canvas.create_image(10, 10, anchor=NW, image=img)
     win.option_add("*Font", "궁서 25")
     btn = Button(win, command=btncall)
     btn.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
@@ -155,13 +183,10 @@ def main():
     btn2.pack(side=LEFT, padx=70)  # 버튼 배
     btn3 = Button(win, command=btncall3)
     btn3.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
-    btn3.config(text="연습2")  # 현재 시각
+    btn3.config(text="게임하기")  # 현재 시각
     btn3.pack(side=LEFT, padx=70)  # 버튼 배
     # canvas = Canvas(win, bg='Yellow')
     # canvas.pack(expand=YES, fill=BOTH)
     win.mainloop()  # 창 실행
-
-
-
 
 main()
