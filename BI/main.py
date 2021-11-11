@@ -1,10 +1,43 @@
 import tkinter
 from tkinter import *
+from tkinter.font import ITALIC
+
 from pygame.rect import *
 import os
 import random
 import pygame
 score =0
+#BASICFRONT = pygame.font.SysFont(ITALIC)
+def juice():
+    global new
+    new = Toplevel()
+    new.geometry("320x200+820+100")
+    canvas = Canvas(new, bg='Yellow')
+    new.title("주스")
+    # canvas.pack(expand=YES, fill=BOTH)
+    # img = PhotoImage(file="bananaleaf.png")
+    # canvas.create_image(10, 10, anchor=NW, image=img)
+    new.mainloop()
+def bread():
+    global new
+    new = Toplevel()
+    new.geometry("320x200+820+100")
+    canvas = Canvas(new, bg='Yellow')
+    new.title("빵")
+    # canvas.pack(expand=YES, fill=BOTH)
+    # img = PhotoImage(file="bananaleaf.png")
+    # canvas.create_image(10, 10, anchor=NW, image=img)
+    new.mainloop()
+def dessert():
+    global new
+    new = Toplevel()
+    new.geometry("320x200+820+100")
+    canvas = Canvas(new, bg='Yellow')
+    new.title("디저트")
+    # canvas.pack(expand=YES, fill=BOTH)
+    # img = PhotoImage(file="bananaleaf.png")
+    # canvas.create_image(10, 10, anchor=NW, image=img)
+    new.mainloop()
 
 def btncall():
     global new
@@ -19,23 +52,25 @@ def btncall():
 def btncall2():
     global new
     new = Toplevel()
-    btn = Button(new, command=btncall)
+    btn = Button(new, command=juice)
     # img = PhotoImage(file="bananaleaf.png")
     # photo = PhotoImage(file="m.gif")
     # btn = Button(new, image=photo)
     #btn.pack(expand=1, anchor=CENTER)
-    btn.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30),)  # 버튼 가로 세로 크기 변경
-    btn.config(text="연습1")  # 현재 시각
+    btn.config(width=5, height=2, bg="#9FF781", font=('koverwatch', 30),)  # 버튼 가로 세로 크기 변경
+    btn.config(text="주스")  # 현재 시각
     btn.pack(side=LEFT, padx=70)  # 버튼 배
-    btn2 = Button(new, )
-    btn2.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
-    btn2.config(text="연습2")  # 현재 시각
+    btn2 = Button(new, command=bread)
+    btn2.config(width=5, height=2, bg="#99681A", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn2.config(text="빵")  # 현재 시각
     btn2.pack(side=LEFT, padx=70)  # 버튼 배
-    btn3 = Button(new, )
-    btn3.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
-    btn3.config(text="연습2")  # 현재 시각
+    btn3 = Button(new, command=dessert)
+    btn3.config(width=5, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn3.config(text="디저트")  # 현재 시각
     btn3.pack(side=LEFT, padx=70)  # 버튼 배
 def btncall3():
+
+
     score =0
     pygame.init()  # 초기화 (반드시 필요) init 호출
 
@@ -78,9 +113,9 @@ def btncall3():
 
     #돈만들기
     don = pygame.image.load("orange4.png")
-    don_size = ddong.get_rect().size
-    don_width = ddong_size[0]
-    don_height = ddong_size[1]
+    don_size = don.get_rect().size
+    don_width = don_size[0]
+    don_height = don_size[1]
     don_x_pos = random.randint(0, screen_width - ddong_width)  # 0 ~ 480 - 캐릭터
     don_y_pos = 0
     don_speed = 10
@@ -145,13 +180,14 @@ def btncall3():
         if character_rect.colliderect(don_rect):
             print("돈먹음")
             running = True
-            #score +=100
+            #score +=1
 
         # 5. 화면에 그리기
         screen.blit(background, (0, 0))
         screen.blit(character, (character_x_pos, character_y_pos))
         screen.blit(ddong, (ddong_x_pos, ddong_y_pos))
         screen.blit(don, (don_x_pos, don_y_pos))
+        #screen.blit.BASICFRONT.render("Score"+str(score),1)
         #screen.blit(score)
 
         pygame.display.update()  # 게임 화면을 다시 그리기 ! (반드시 계속 호출되어야함)
@@ -174,7 +210,7 @@ def main():
     # canvas.create_image(10, 10, anchor=NW, image=img)
     win.option_add("*Font", "궁서 25")
     btn = Button(win, command=btncall)
-    btn.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn.config(width=10, height=2, bg="#ffcc33", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn.config(text="연습1")  # 현재 시각
     btn.pack(side=LEFT, padx=70)  # 버튼 배
     btn2 = Button(win, command=btncall2)
@@ -182,7 +218,7 @@ def main():
     btn2.config(text="연습2")  # 현재 시각
     btn2.pack(side=LEFT, padx=70)  # 버튼 배
     btn3 = Button(win, command=btncall3)
-    btn3.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn3.config(width=10, height=2, bg="#81BEF7", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn3.config(text="게임하기")  # 현재 시각
     btn3.pack(side=LEFT, padx=70)  # 버튼 배
     # canvas = Canvas(win, bg='Yellow')
