@@ -42,10 +42,10 @@ def dessert():
 def btncall():
     global new
     new = Toplevel()
-    new.geometry("320x200+820+100")
+    new.geometry("800x600")
     canvas = Canvas(new, bg='Yellow')
     canvas.pack(expand=YES, fill=BOTH)
-    img=PhotoImage(file="bananaleaf.png")
+    img=PhotoImage(file="bananaI.png")
     canvas.create_image(10, 10, anchor=NW, image=img)
     new.mainloop()
 
@@ -112,7 +112,7 @@ def btncall3():
     ddong_speed = 10
 
     #돈만들기
-    don = pygame.image.load("orange4.png")
+    don = pygame.image.load("banana.png")
     don_size = don.get_rect().size
     don_width = don_size[0]
     don_height = don_size[1]
@@ -211,11 +211,11 @@ def main():
     win.option_add("*Font", "궁서 25")
     btn = Button(win, command=btncall)
     btn.config(width=10, height=2, bg="#ffcc33", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
-    btn.config(text="연습1")  # 현재 시각
+    btn.config(text="바나나정보")  # 현재 시각
     btn.pack(side=LEFT, padx=70)  # 버튼 배
     btn2 = Button(win, command=btncall2)
     btn2.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
-    btn2.config(text="연습2")  # 현재 시각
+    btn2.config(text="바나나요리")  # 현재 시각
     btn2.pack(side=LEFT, padx=70)  # 버튼 배
     btn3 = Button(win, command=btncall3)
     btn3.config(width=10, height=2, bg="#81BEF7", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
