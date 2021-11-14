@@ -69,7 +69,7 @@ def btncall2():
     btn3.config(text="디저트")  # 현재 시각
     btn3.pack(side=LEFT, padx=70)  # 버튼 배
 def btncall3():
-
+    BLACK = (0, 0, 0)
 
     score =0
     pygame.init()  # 초기화 (반드시 필요) init 호출
@@ -180,15 +180,16 @@ def btncall3():
         if character_rect.colliderect(don_rect):
             print("돈먹음")
             running = True
-            #score +=1
+            score +=1
 
         # 5. 화면에 그리기
         screen.blit(background, (0, 0))
         screen.blit(character, (character_x_pos, character_y_pos))
         screen.blit(ddong, (ddong_x_pos, ddong_y_pos))
         screen.blit(don, (don_x_pos, don_y_pos))
-        #screen.blit.BASICFRONT.render("Score"+str(score),1)
-        #screen.blit(score)
+        font_01 = pygame.font.SysFont("FixedSsy", 30, True, False)
+        text_score = font_01.render("Score : " + str(score), True, BLACK)
+        screen.blit(text_score, [15, 15])
 
         pygame.display.update()  # 게임 화면을 다시 그리기 ! (반드시 계속 호출되어야함)
 
