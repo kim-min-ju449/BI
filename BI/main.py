@@ -22,22 +22,22 @@ def juice():
 def bread():
     global new
     new = Toplevel()
-    new.geometry("320x200+820+100")
-    canvas = Canvas(new, bg='Yellow')
+    new.geometry("800x600")
+    canvas = Canvas(new, bg='#FEEBB6')
     new.title("빵")
-    # canvas.pack(expand=YES, fill=BOTH)
-    # img = PhotoImage(file="bananaleaf.png")
-    # canvas.create_image(10, 10, anchor=NW, image=img)
+    canvas.pack(expand=YES, fill=BOTH)
+    img = PhotoImage(file="bananabread.png")
+    canvas.create_image(10, 10, anchor=NW, image=img)
     new.mainloop()
 def dessert():
     global new
     new = Toplevel()
-    new.geometry("320x200+820+100")
-    canvas = Canvas(new, bg='Yellow')
+    new.geometry("800x600")
+    canvas = Canvas(new, bg='#FEEBB6')
     new.title("디저트")
-    # canvas.pack(expand=YES, fill=BOTH)
-    # img = PhotoImage(file="bananaleaf.png")
-    # canvas.create_image(10, 10, anchor=NW, image=img)
+    canvas.pack(expand=YES, fill=BOTH)
+    img = PhotoImage(file="bananadessert.png")
+    canvas.create_image(10, 10, anchor=NW, image=img)
     new.mainloop()
 
 def btncall():
@@ -182,13 +182,14 @@ def btncall3():
         if character_rect.colliderect(ddong_rect):
             print("충돌")
             running = False
-            print(today())
-            print(score)
-            return score
+            #print(today())
+            #print(score)
+
+            #return score
 
 
         if character_rect.colliderect(don_rect):
-            print("돈먹음")
+
             running = True
             score +=1
 
@@ -205,10 +206,6 @@ def btncall3():
     # 잠시 대기
     pygame.time.delay(2000)  # 2초 정도 대기 (ms) 하고 게임 꺼짐
 
-    # screen.blit(back, (0, 0))
-    # text_score = font_01.render("Score : " + str(score), True, BLACK)
-    # screen.blit(text_score, [100, 50])
-    # pygame 종료
     pygame.quit()
 
 def data():
