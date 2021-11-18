@@ -1,22 +1,23 @@
 import tkinter
 from tkinter import *
 from tkinter.font import ITALIC
-
+from PyQt5.QtCore import QDateTime
+import datetime as dt
 from pygame.rect import *
 import os
 import random
 import pygame
-score =0
+global score
 #BASICFRONT = pygame.font.SysFont(ITALIC)
 def juice():
     global new
     new = Toplevel()
-    new.geometry("320x200+820+100")
-    canvas = Canvas(new, bg='Yellow')
+    new.geometry("800x600")
+    canvas = Canvas(new, bg='#FEEBB6')
     new.title("주스")
-    # canvas.pack(expand=YES, fill=BOTH)
-    # img = PhotoImage(file="bananaleaf.png")
-    # canvas.create_image(10, 10, anchor=NW, image=img)
+    canvas.pack(expand=YES, fill=BOTH)
+    img = PhotoImage(file="bananajuice.png")
+    canvas.create_image(10, 10, anchor=NW, image=img)
     new.mainloop()
 def bread():
     global new
@@ -43,7 +44,7 @@ def btncall():
     global new
     new = Toplevel()
     new.geometry("800x600")
-    canvas = Canvas(new, bg='Yellow')
+    canvas = Canvas(new, bg='White')
     canvas.pack(expand=YES, fill=BOTH)
     img=PhotoImage(file="bananaI.png")
     canvas.create_image(10, 10, anchor=NW, image=img)
@@ -68,10 +69,14 @@ def btncall2():
     btn3.config(width=5, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn3.config(text="디저트")  # 현재 시각
     btn3.pack(side=LEFT, padx=70)  # 버튼 배
+def today():
+    datetime = QDateTime.currentDateTime()
+    return datetime
 def btncall3():
-    BLACK = (0, 0, 0)
 
+    BLACK = (0, 0, 0)
     score =0
+
     pygame.init()  # 초기화 (반드시 필요) init 호출
 
     # 화면 크기 설정
@@ -89,6 +94,7 @@ def btncall3():
     # 1. 사용자 게임 초기화 (배경화면, 게임 이미지, 좌표, 속도, 폰트 등)
     # 배경 만들기
     background = pygame.image.load("bananaleaf.png")
+    back = BLACK
 
     # 캐릭터 만들기
     character = pygame.image.load("doll1.png")
@@ -176,7 +182,11 @@ def btncall3():
         if character_rect.colliderect(ddong_rect):
             print("충돌")
             running = False
-            
+            print(today())
+            print(score)
+            return score
+
+
         if character_rect.colliderect(don_rect):
             print("돈먹음")
             running = True
@@ -190,15 +200,52 @@ def btncall3():
         font_01 = pygame.font.SysFont("FixedSsy", 30, True, False)
         text_score = font_01.render("Score : " + str(score), True, BLACK)
         screen.blit(text_score, [15, 15])
-
         pygame.display.update()  # 게임 화면을 다시 그리기 ! (반드시 계속 호출되어야함)
 
     # 잠시 대기
     pygame.time.delay(2000)  # 2초 정도 대기 (ms) 하고 게임 꺼짐
 
+    # screen.blit(back, (0, 0))
+    # text_score = font_01.render("Score : " + str(score), True, BLACK)
+    # screen.blit(text_score, [100, 50])
     # pygame 종료
     pygame.quit()
 
+def data():
+    f = open('score.txt', 'w', encoding='utf-8')
+
+   # f.write(score)
+    f.write('\n')
+    f.write('월드')
+    f.write('\n')
+    f.write(str(score))
+
+    f.close()
+
+    print('with')
+
+    with open('text.txt', 'w', encoding='utf-8') as f:
+
+        f.write(str(score))
+
+def btncall4():
+    global new
+    new = Toplevel()
+    new.geometry("800x600")
+    #datetime = QDateTime.currentDateTime()
+    x = dt.datetime.now()
+    x
+    label = tkinter.Label(new, text=x, width=50, height=5, fg="BLACK", relief="solid")
+    #label2 = tkinter.Label(new, text=score, width=50, height=5, fg="BLACK", relief="solid")
+    label.pack()
+    #label2.pack()
+
+    #new.config("text")
+    # canvas = Canvas(new, bg='Yellow')
+    # canvas.pack(expand=YES, fill=BOTH)
+    # img=PhotoImage(file="bananaI.png")
+    # canvas.create_image(10, 10, anchor=NW, image=img)
+    new.mainloop()
 
 
 def main():
@@ -213,15 +260,19 @@ def main():
     btn = Button(win, command=btncall)
     btn.config(width=10, height=2, bg="#ffcc33", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn.config(text="바나나정보")  # 현재 시각
-    btn.pack(side=LEFT, padx=70)  # 버튼 배
+    btn.pack(side=LEFT, padx=40)  # 버튼 배
     btn2 = Button(win, command=btncall2)
     btn2.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn2.config(text="바나나요리")  # 현재 시각
-    btn2.pack(side=LEFT, padx=70)  # 버튼 배
+    btn2.pack(side=LEFT, padx=40)  # 버튼 배
     btn3 = Button(win, command=btncall3)
     btn3.config(width=10, height=2, bg="#81BEF7", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn3.config(text="게임하기")  # 현재 시각
-    btn3.pack(side=LEFT, padx=70)  # 버튼 배
+    btn3.pack(side=LEFT, padx=40)  # 버튼 배
+    btn4 = Button(win, command=btncall4)
+    btn4.config(width=10, height=2, bg="#81BEF7", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn4.config(text="게임기록")  # 현재 시각
+    btn4.pack(side=LEFT, padx=40)  # 버튼 배
     # canvas = Canvas(win, bg='Yellow')
     # canvas.pack(expand=YES, fill=BOTH)
     win.mainloop()  # 창 실행
