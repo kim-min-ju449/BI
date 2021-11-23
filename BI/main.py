@@ -8,6 +8,7 @@ import os
 import random
 import pygame
 global score
+li =[]
 #BASICFRONT = pygame.font.SysFont(ITALIC)
 def juice():
     global new
@@ -75,8 +76,9 @@ def today():
 def btncall3():
 
     BLACK = (0, 0, 0)
+    i=0
     score =0
-
+    count=0
     pygame.init()  # 초기화 (반드시 필요) init 호출
 
     # 화면 크기 설정
@@ -108,7 +110,7 @@ def btncall3():
     to_x = 0
     character_speed = 10
 
-    # 똥 만들기
+    # 장애물 만들기
     ddong = pygame.image.load("orange1.png")
     ddong_size = ddong.get_rect().size
     ddong_width = ddong_size[0]
@@ -180,13 +182,14 @@ def btncall3():
         don_rect.top = don_y_pos
 
         if character_rect.colliderect(ddong_rect):
-            print("충돌")
+            #print("충돌")
+            print("점수" + str(score))
+            print(today())
+
+
             running = False
-            #print(today())
-            #print(score)
 
             #return score
-
 
         if character_rect.colliderect(don_rect):
 
@@ -207,6 +210,18 @@ def btncall3():
     pygame.time.delay(2000)  # 2초 정도 대기 (ms) 하고 게임 꺼짐
 
     pygame.quit()
+    count+=1
+    score+=1
+    li.append(score)
+    print(li)
+    f = open('score.txt', 'w', encoding='utf-8')
+    for i in range(0, count + 1):
+
+        f.write("점수"+str(score)+" "+str(today())+'\n')
+
+
+    f.close()
+
 
 def data():
     f = open('score.txt', 'w', encoding='utf-8')
@@ -221,9 +236,8 @@ def data():
 
     print('with')
 
-    with open('text.txt', 'w', encoding='utf-8') as f:
+    #with open('text.txt', 'w', encoding='utf-8') as f:
 
-        f.write(str(score))
 
 def btncall4():
     global new
@@ -242,6 +256,7 @@ def btncall4():
     # canvas.pack(expand=YES, fill=BOTH)
     # img=PhotoImage(file="bananaI.png")
     # canvas.create_image(10, 10, anchor=NW, image=img)
+    #print(str(score))
     new.mainloop()
 
 
