@@ -5,6 +5,7 @@ from PyQt5.QtCore import QDateTime
 import datetime as dt
 from pygame.rect import *
 import os
+import datetime
 import random
 import pygame
 global score
@@ -210,17 +211,21 @@ def btncall3():
     pygame.time.delay(2000)  # 2초 정도 대기 (ms) 하고 게임 꺼짐
 
     pygame.quit()
-    count+=1
-    score+=1
-    li.append(score)
-    print(li)
-    f = open('score.txt', 'w', encoding='utf-8')
-    for i in range(0, count + 1):
 
-        f.write("점수"+str(score)+" "+str(today())+'\n')
+    with open('score.txt', 'a') as f:
+        f.write(f'{score}\t{datetime.datetime.now()}\n')
 
-
-    f.close()
+    # count+=1
+    # score+=1
+    # li.append(score)
+    # print(li)
+    # f = open('score.txt', 'w', encoding='utf-8')
+    # for i in range(0, count + 1):
+    #
+    #     f.write("점수"+str(score)+" "+str(today())+'\n')
+    #
+    #
+    # f.close()
 
 
 def data():
