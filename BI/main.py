@@ -178,7 +178,7 @@ def btncall3():
         if character_rect.colliderect(ddong_rect):
             #print("충돌")
             print("점수" + str(score))
-            print(today())
+
 
 
             running = False
@@ -211,38 +211,28 @@ def btncall3():
 
 
 def data():
-    f = open('score.txt', 'w', encoding='utf-8')
+    global new
+    new = Toplevel()
+    new.geometry("800x600")
+    # new.scrollbar = new.Scrollbar(new.window)
+    # new.scrollbar.pack(side="right", fill="y")
+    myscroll = Scrollbar(new)
+    myscroll.pack(side=RIGHT, fill=Y)
 
-    f.write('\n')
-    f.write('월드')
-    f.write('\n')
-    f.write(str(score))
+    count_list = []
+    with open('score.txt', 'r') as f:
+        while True:
+            line = f.readline()
+            if line == '':
+                break
+            line_data = line.rstrip().split('\t')
+            lbl = Label(new, text=line, font=("궁서체", 15), bg='white')
+            lbl.pack(pady=2)
 
-    f.close()
 
-    print('with')
-
-
-# def btncall4():
-#     global new
-#     new = Toplevel()
-#     new.geometry("800x600")
-#     #datetime = QDateTime.currentDateTime()
-#     x = dt.datetime.now()
-#     x
-#     label = tkinter.Label(new, text=x, width=50, height=5, fg="BLACK", relief="solid")
-#     #label2 = tkinter.Label(new, text=score, width=50, height=5, fg="BLACK", relief="solid")
-#     label.pack()
-#     #label2.pack()
-#
-#     #new.config("text")
-#     # canvas = Canvas(new, bg='Yellow')
-#     # canvas.pack(expand=YES, fill=BOTH)
-#     # img=PhotoImage(file="bananaI.png")
-#     # canvas.create_image(10, 10, anchor=NW, image=img)+
-#     #print(str(score))
-#     new.mainloop()
-#
+    myscroll.config(command=new)
+    canvas = Canvas(new, bg='White')
+    canvas.pack(expand=YES, fill=BOTH)
 
 def main():
     win = Tk()  # 창 생성
@@ -257,23 +247,21 @@ def main():
     # canvas.create_image(10, 10, anchor=NW, image=img)
     win.option_add("*Font", "궁서 25")
     btn = Button(win, command=btncall)
-    btn.config(width=10, height=2, bg="#ffcc33", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn.config(width=8, height=2, bg="#ffcc33", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn.config(text="바나나정보")  # 현재 시각
-    btn.pack(side=LEFT, padx=40)  # 버튼 배
+    btn.pack(side=LEFT, padx=30)  # 버튼 배
     btn2 = Button(win, command=btncall2)
-    btn2.config(width=10, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn2.config(width=8, height=2, bg="lightyellow", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn2.config(text="바나나요리")  # 현재 시각
-    btn2.pack(side=LEFT, padx=40)  # 버튼 배
+    btn2.pack(side=LEFT, padx=30)  # 버튼 배
     btn3 = Button(win, command=btncall3)
-    btn3.config(width=10, height=2, bg="#81BEF7", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn3.config(width=8, height=2, bg="#81BEF7", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
     btn3.config(text="게임하기")  # 현재 시각
-    btn3.pack(side=LEFT, padx=40)  # 버튼 배
-    # btn4 = Button(win, command=btncall4)
-    # btn4.config(width=10, height=2, bg="#81BEF7", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
-    # btn4.config(text="게임기록")  # 현재 시각
-    # btn4.pack(side=LEFT, padx=40)  # 버튼 배
-    # canvas = Canvas(win, bg='Yellow')
-    # canvas.pack(expand=YES, fill=BOTH)
+    btn3.pack(side=LEFT, padx=30)  # 버튼 배
+    btn4 = Button(win, command=data)
+    btn4.config(width=8, height=2, bg="#F5DA81", font=('koverwatch', 30), )  # 버튼 가로 세로 크기 변경
+    btn4.config(text="게임기록")  # 현재 시각
+    btn4.pack(side=LEFT, padx=30)  # 버튼 배
     win.mainloop()  # 창 실행
 
 main()
